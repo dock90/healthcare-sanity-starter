@@ -11,7 +11,10 @@
     "typecheck": "tsc --noEmit",
     "import-redirects": "tsx scripts/import-redirects.ts",
     "check-url-parity": "tsx scripts/check-url-parity.ts",
-    "seed": "tsx scripts/seed.ts"
+    "seed": "tsx scripts/seed.ts",
+    "test": "vitest run",
+    "e2e": "playwright test",
+    "lhci": "lhci autorun"
   },
   "dependencies": {
     "@portabletext/react": "^8.0.1",
@@ -27,6 +30,8 @@
     "styled-components": "^6.5.3"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@lhci/cli": "^0.15.1",
     "@next/env": "^16.3.2",
     "@playwright/test": "^1.62.1",
     "@tailwindcss/postcss": "^4",
@@ -39,6 +44,8 @@
     "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.11",
+    "wait-on": "^9.1.0"
   }
 }

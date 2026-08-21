@@ -49,7 +49,9 @@ export const PHI_KEY_PATTERNS: Array<{ pattern: RegExp; label: string }> = [
 
 export function phiWarning(key: string | undefined): string | true {
   if (!key) return true;
-  const hit = PHI_KEY_PATTERNS.find(({ pattern }) => pattern.test(key));
+  // camelCase → words so `medicalRecordNumber` matches "medical record".
+  const words = key.replace(/([a-z0-9])([A-Z])/g, "$1 $2").toLowerCase();
+  const hit = PHI_KEY_PATTERNS.find(({ pattern }) => pattern.test(words));
   if (!hit) return true;
   return (
     `"${key}" looks like it collects ${hit.label}, which is Protected Health Information. ` +

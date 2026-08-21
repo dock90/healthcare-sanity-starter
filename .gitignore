@@ -43,3 +43,8 @@ sanity/extracted-schema.json
 
 # never commit scratch output
 /private/
+
+# test output
+/test-results/
+/playwright-report/
+/.lighthouseci/
