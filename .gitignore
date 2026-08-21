@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 sanity/extracted-schema.json
+
+# never commit scratch output
+/private/

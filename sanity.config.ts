@@ -3,6 +3,8 @@
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
+import { presentationTool } from "sanity/presentation";
+import { presentationResolve } from "./sanity/presentation";
 import { apiVersion, dataset, projectId } from "./sanity/env";
 import { schemaTypes } from "./sanity/schema";
 import { SETTINGS_ID, structure } from "./sanity/structure";
@@ -27,7 +29,14 @@ export default defineConfig({
         ? prev.filter(({ action }) => action && !["delete", "duplicate", "unpublish"].includes(action))
         : prev,
   },
-  plugins: [structureTool({ structure }), visionTool({ defaultApiVersion: apiVersion })],
+  plugins: [
+    structureTool({ structure }),
+    presentationTool({
+      resolve: presentationResolve,
+      previewUrl: { previewMode: { enable: "/api/draft-mode/enable" } },
+    }),
+    visionTool({ defaultApiVersion: apiVersion }),
+  ],
 });
 // Settings document ID is fixed so queries can fetch it by ID.
 export { SETTINGS_ID };

@@ -24,7 +24,17 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-full flex-col">
         {children}
         <SanityLive />
-        {isDraft ? <VisualEditing /> : null}
+        {isDraft ? (
+          <>
+            <VisualEditing />
+            <a
+              href="/api/draft-mode/disable"
+              className="fixed bottom-4 right-4 z-50 inline-flex min-h-target items-center rounded bg-ink px-4 text-sm font-medium text-ink-inverse"
+            >
+              Exit preview
+            </a>
+          </>
+        ) : null}
       </body>
     </html>
   );
