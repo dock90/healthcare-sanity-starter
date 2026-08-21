@@ -27,6 +27,8 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
         {isDraft ? (
           <>
             <VisualEditing />
+            {/* Plain anchor on purpose: <Link> would prefetch the route handler and end draft mode early. */}
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a
               href="/api/draft-mode/disable"
               className="fixed bottom-4 right-4 z-50 inline-flex min-h-target items-center rounded bg-ink px-4 text-sm font-medium text-ink-inverse"
