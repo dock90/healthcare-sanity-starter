@@ -14,7 +14,7 @@
 
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
-// Source: sanity/schema.json
+// Source: sanity/extracted-schema.json
 export type Seo = {
   _type: "seo";
   title?: string;
@@ -582,3 +582,663 @@ export type AllSanitySchemaTypes =
   | SanityFileAsset
   | SanityAssetSourceData
   | SanityImageAsset;
+
+// Source: sanity/queries.ts
+// Variable: SETTINGS_QUERY
+// Query: *[_type == "settings" && _id == "settings"][0] {  orgName, tagline, logo { asset, hotspot, crop, alt },  contact { phone, email, primaryLocation-> {  _id, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,  hours[] { _key, days, opens, closes }} },  social[] { label, href },  patientsNav { header[] { label, href }, footer[] { label, href }, cta { label, href } },  providersNav { header[] { label, href }, footer[] { label, href }, cta { label, href } },  defaultSeo { title, description, image { asset, hotspot, crop, alt }, noIndex },  ga4Id,  consent { title, description, policyLink { label, href } }}
+export type SETTINGS_QUERY_RESULT = {
+  orgName: string | null;
+  tagline: string | null;
+  logo: {
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  contact: {
+    phone: string | null;
+    email: string | null;
+    primaryLocation: {
+      _id: string;
+      name: string | null;
+      slug: string | null;
+      image: {
+        asset: SanityImageAssetReference | null;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        alt: string | null;
+      } | null;
+      address: {
+        street?: string;
+        city?: string;
+        region?: string;
+        postalCode?: string;
+        country?: string;
+      } | null;
+      phone: string | null;
+      geo: Geopoint | null;
+      hours: Array<{
+        _key: string;
+        days: Array<string> | null;
+        opens: string | null;
+        closes: string | null;
+      }> | null;
+    } | null;
+  } | null;
+  social: Array<{
+    label: string | null;
+    href: string | null;
+  }> | null;
+  patientsNav: {
+    header: Array<{
+      label: string | null;
+      href: string | null;
+    }> | null;
+    footer: Array<{
+      label: string | null;
+      href: string | null;
+    }> | null;
+    cta: {
+      label: string | null;
+      href: string | null;
+    } | null;
+  } | null;
+  providersNav: {
+    header: Array<{
+      label: string | null;
+      href: string | null;
+    }> | null;
+    footer: Array<{
+      label: string | null;
+      href: string | null;
+    }> | null;
+    cta: {
+      label: string | null;
+      href: string | null;
+    } | null;
+  } | null;
+  defaultSeo: {
+    title: string | null;
+    description: string | null;
+    image: {
+      asset: SanityImageAssetReference | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    noIndex: boolean | null;
+  } | null;
+  ga4Id: string | null;
+  consent: {
+    title: string | null;
+    description: string | null;
+    policyLink: {
+      label: string | null;
+      href: string | null;
+    } | null;
+  } | null;
+} | null;
+
+// Source: sanity/queries.ts
+// Variable: PAGE_QUERY
+// Query: *[_type == "page" && audience == $audience && slug.current == $slug][0] {  _id, _type, title, audience, "slug": slug.current, seo { title, description, image { asset, hotspot, crop, alt }, noIndex }, sections[] {  _key, _type,  _type == "hero" => { eyebrow, heading, text, image { asset, hotspot, crop, alt }, buttons[] { label, href } },  _type == "richText" => { body },  _type == "cta" => { heading, text, buttons[] { label, href } },  _type == "cards" => { heading, intro, items[] { _key, title, text, image { asset, hotspot, crop, alt }, link { label, href } } },  _type == "faqs" => { heading, items[]-> { _id, question, answer } },  _type == "providers" => {    heading,    "items": select(      count(items) > 0 => items[]-> {  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients},      *[_type == "provider"] | order(name asc) {  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients}    )  },  _type == "locations" => {    heading,    "items": select(      count(items) > 0 => items[]-> {  _id, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,  hours[] { _key, days, opens, closes }},      *[_type == "location"] | order(name asc) {  _id, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,  hours[] { _key, days, opens, closes }}    )  },  _type == "form" => {    heading, text, formId, submitLabel, successMessage,    fields[] { _key, key, label, type, options, required }  }}}
+export type PAGE_QUERY_RESULT = {
+  _id: string;
+  _type: "page";
+  title: string | null;
+  audience: "patients" | "providers" | null;
+  slug: string | null;
+  seo: {
+    title: string | null;
+    description: string | null;
+    image: {
+      asset: SanityImageAssetReference | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    noIndex: boolean | null;
+  } | null;
+  sections: Array<
+    | {
+        _key: string;
+        _type: "cards";
+        heading: string | null;
+        intro: string | null;
+        items: Array<{
+          _key: string;
+          title: string | null;
+          text: string | null;
+          image: {
+            asset: SanityImageAssetReference | null;
+            hotspot: SanityImageHotspot | null;
+            crop: SanityImageCrop | null;
+            alt: string | null;
+          } | null;
+          link: {
+            label: string | null;
+            href: string | null;
+          } | null;
+        }> | null;
+      }
+    | {
+        _key: string;
+        _type: "cta";
+        heading: string | null;
+        text: string | null;
+        buttons: Array<{
+          label: string | null;
+          href: string | null;
+        }> | null;
+      }
+    | {
+        _key: string;
+        _type: "faqs";
+        heading: string | null;
+        items: Array<{
+          _id: string;
+          question: string | null;
+          answer: PortableText | null;
+        }> | null;
+      }
+    | {
+        _key: string;
+        _type: "form";
+        heading: string | null;
+        text: string | null;
+        formId: string | null;
+        submitLabel: string | null;
+        successMessage: string | null;
+        fields: Array<{
+          _key: string;
+          key: string | null;
+          label: string | null;
+          type: "email" | "select" | "tel" | "text" | "textarea" | null;
+          options: Array<string> | null;
+          required: boolean | null;
+        }> | null;
+      }
+    | {
+        _key: string;
+        _type: "hero";
+        eyebrow: string | null;
+        heading: string | null;
+        text: string | null;
+        image: {
+          asset: SanityImageAssetReference | null;
+          hotspot: SanityImageHotspot | null;
+          crop: SanityImageCrop | null;
+          alt: string | null;
+        } | null;
+        buttons: Array<{
+          label: string | null;
+          href: string | null;
+        }> | null;
+      }
+    | {
+        _key: string;
+        _type: "locations";
+        heading: string | null;
+        items: Array<{
+          _id: string;
+          name: string | null;
+          slug: string | null;
+          image: {
+            asset: SanityImageAssetReference | null;
+            hotspot: SanityImageHotspot | null;
+            crop: SanityImageCrop | null;
+            alt: string | null;
+          } | null;
+          address: {
+            street?: string;
+            city?: string;
+            region?: string;
+            postalCode?: string;
+            country?: string;
+          } | null;
+          phone: string | null;
+          geo: Geopoint | null;
+          hours: Array<{
+            _key: string;
+            days: Array<string> | null;
+            opens: string | null;
+            closes: string | null;
+          }> | null;
+        }> | null;
+      }
+    | {
+        _key: string;
+        _type: "providers";
+        heading: string | null;
+        items: Array<{
+          _id: string;
+          name: string | null;
+          credentials: string | null;
+          title: string | null;
+          slug: string | null;
+          headshot: {
+            asset: SanityImageAssetReference | null;
+            hotspot: SanityImageHotspot | null;
+            crop: SanityImageCrop | null;
+            alt: string | null;
+          } | null;
+          specialties: Array<string> | null;
+          acceptingPatients: boolean | null;
+        }> | null;
+      }
+    | {
+        _key: string;
+        _type: "richText";
+        body: PortableText | null;
+      }
+  > | null;
+} | null;
+
+// Source: sanity/queries.ts
+// Variable: PAGE_SLUGS_QUERY
+// Query: *[_type == "page" && defined(slug.current)] {  audience, "slug": slug.current, _updatedAt}
+export type PAGE_SLUGS_QUERY_RESULT = Array<{
+  audience: "patients" | "providers" | null;
+  slug: string | null;
+  _updatedAt: string;
+}>;
+
+// Source: sanity/queries.ts
+// Variable: PROVIDER_QUERY
+// Query: *[_type == "provider" && slug.current == $slug][0] {  _id, _type, _updatedAt, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt },  specialties, acceptingPatients, bio,  locations[]-> {  _id, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,  hours[] { _key, days, opens, closes }},  "services": *[_type == "service" && references(^._id)] | order(title asc) { _id, title, "slug": slug.current, summary }}
+export type PROVIDER_QUERY_RESULT = {
+  _id: string;
+  _type: "provider";
+  _updatedAt: string;
+  name: string | null;
+  credentials: string | null;
+  title: string | null;
+  slug: string | null;
+  headshot: {
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  specialties: Array<string> | null;
+  acceptingPatients: boolean | null;
+  bio: PortableText | null;
+  locations: Array<{
+    _id: string;
+    name: string | null;
+    slug: string | null;
+    image: {
+      asset: SanityImageAssetReference | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    address: {
+      street?: string;
+      city?: string;
+      region?: string;
+      postalCode?: string;
+      country?: string;
+    } | null;
+    phone: string | null;
+    geo: Geopoint | null;
+    hours: Array<{
+      _key: string;
+      days: Array<string> | null;
+      opens: string | null;
+      closes: string | null;
+    }> | null;
+  }> | null;
+  services: Array<{
+    _id: string;
+    title: string | null;
+    slug: string | null;
+    summary: string | null;
+  }>;
+} | null;
+
+// Source: sanity/queries.ts
+// Variable: PROVIDERS_QUERY
+// Query: *[_type == "provider"] | order(name asc) {  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients}
+export type PROVIDERS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string | null;
+  credentials: string | null;
+  title: string | null;
+  slug: string | null;
+  headshot: {
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  specialties: Array<string> | null;
+  acceptingPatients: boolean | null;
+}>;
+
+// Source: sanity/queries.ts
+// Variable: PROVIDER_SLUGS_QUERY
+// Query: *[_type == "provider" && defined(slug.current)] { "slug": slug.current, _updatedAt }
+export type PROVIDER_SLUGS_QUERY_RESULT = Array<{
+  slug: string | null;
+  _updatedAt: string;
+}>;
+
+// Source: sanity/queries.ts
+// Variable: LOCATION_QUERY
+// Query: *[_type == "location" && slug.current == $slug][0] {  _id, _type, _updatedAt, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,  hours[] { _key, days, opens, closes },  "providers": select(    count(providers) > 0 => providers[]-> {  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients},    *[_type == "provider" && references(^._id)] | order(name asc) {  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients}  )}
+export type LOCATION_QUERY_RESULT = {
+  _id: string;
+  _type: "location";
+  _updatedAt: string;
+  name: string | null;
+  slug: string | null;
+  image: {
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  address: {
+    street?: string;
+    city?: string;
+    region?: string;
+    postalCode?: string;
+    country?: string;
+  } | null;
+  phone: string | null;
+  geo: Geopoint | null;
+  hours: Array<{
+    _key: string;
+    days: Array<string> | null;
+    opens: string | null;
+    closes: string | null;
+  }> | null;
+  providers: Array<{
+    _id: string;
+    name: string | null;
+    credentials: string | null;
+    title: string | null;
+    slug: string | null;
+    headshot: {
+      asset: SanityImageAssetReference | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    specialties: Array<string> | null;
+    acceptingPatients: boolean | null;
+  }> | null;
+} | null;
+
+// Source: sanity/queries.ts
+// Variable: LOCATIONS_QUERY
+// Query: *[_type == "location"] | order(name asc) {  _id, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,  hours[] { _key, days, opens, closes }}
+export type LOCATIONS_QUERY_RESULT = Array<{
+  _id: string;
+  name: string | null;
+  slug: string | null;
+  image: {
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  address: {
+    street?: string;
+    city?: string;
+    region?: string;
+    postalCode?: string;
+    country?: string;
+  } | null;
+  phone: string | null;
+  geo: Geopoint | null;
+  hours: Array<{
+    _key: string;
+    days: Array<string> | null;
+    opens: string | null;
+    closes: string | null;
+  }> | null;
+}>;
+
+// Source: sanity/queries.ts
+// Variable: LOCATION_SLUGS_QUERY
+// Query: *[_type == "location" && defined(slug.current)] { "slug": slug.current, _updatedAt }
+export type LOCATION_SLUGS_QUERY_RESULT = Array<{
+  slug: string | null;
+  _updatedAt: string;
+}>;
+
+// Source: sanity/queries.ts
+// Variable: SERVICE_QUERY
+// Query: *[_type == "service" && slug.current == $slug][0] {  _id, _type, _updatedAt, title, "slug": slug.current, summary, image { asset, hotspot, crop, alt }, body, seo { title, description, image { asset, hotspot, crop, alt }, noIndex },  reviewedBy-> { _id, name, credentials, role, bio, headshot { asset, hotspot, crop, alt } }, reviewedAt,  faqs[]-> { _id, question, answer },  providers[]-> {  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients}}
+export type SERVICE_QUERY_RESULT = {
+  _id: string;
+  _type: "service";
+  _updatedAt: string;
+  title: string | null;
+  slug: string | null;
+  summary: string | null;
+  image: {
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  body: PortableText | null;
+  seo: {
+    title: string | null;
+    description: string | null;
+    image: {
+      asset: SanityImageAssetReference | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    noIndex: boolean | null;
+  } | null;
+  reviewedBy: {
+    _id: string;
+    name: string | null;
+    credentials: string | null;
+    role: string | null;
+    bio: string | null;
+    headshot: {
+      asset: SanityImageAssetReference | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+  } | null;
+  reviewedAt: string | null;
+  faqs: Array<{
+    _id: string;
+    question: string | null;
+    answer: PortableText | null;
+  }> | null;
+  providers: Array<{
+    _id: string;
+    name: string | null;
+    credentials: string | null;
+    title: string | null;
+    slug: string | null;
+    headshot: {
+      asset: SanityImageAssetReference | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    specialties: Array<string> | null;
+    acceptingPatients: boolean | null;
+  }> | null;
+} | null;
+
+// Source: sanity/queries.ts
+// Variable: SERVICE_SLUGS_QUERY
+// Query: *[_type == "service" && defined(slug.current)] { "slug": slug.current, _updatedAt }
+export type SERVICE_SLUGS_QUERY_RESULT = Array<{
+  slug: string | null;
+  _updatedAt: string;
+}>;
+
+// Source: sanity/queries.ts
+// Variable: SERVICES_QUERY
+// Query: *[_type == "service"] | order(title asc) {  _id, title, "slug": slug.current, summary, image { asset, hotspot, crop, alt }}
+export type SERVICES_QUERY_RESULT = Array<{
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  summary: string | null;
+  image: {
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+}>;
+
+// Source: sanity/queries.ts
+// Variable: POST_QUERY
+// Query: *[_type == "post" && slug.current == $slug][0] {  _id, _type, _updatedAt, title, "slug": slug.current, publishedAt, excerpt, image { asset, hotspot, crop, alt }, body, seo { title, description, image { asset, hotspot, crop, alt }, noIndex },  author-> { _id, name, credentials, role, bio, headshot { asset, hotspot, crop, alt } }, reviewedBy-> { _id, name, credentials, role, bio, headshot { asset, hotspot, crop, alt } }, reviewedAt}
+export type POST_QUERY_RESULT = {
+  _id: string;
+  _type: "post";
+  _updatedAt: string;
+  title: string | null;
+  slug: string | null;
+  publishedAt: string | null;
+  excerpt: string | null;
+  image: {
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  body: PortableText | null;
+  seo: {
+    title: string | null;
+    description: string | null;
+    image: {
+      asset: SanityImageAssetReference | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    noIndex: boolean | null;
+  } | null;
+  author: {
+    _id: string;
+    name: string | null;
+    credentials: string | null;
+    role: string | null;
+    bio: string | null;
+    headshot: {
+      asset: SanityImageAssetReference | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+  } | null;
+  reviewedBy: {
+    _id: string;
+    name: string | null;
+    credentials: string | null;
+    role: string | null;
+    bio: string | null;
+    headshot: {
+      asset: SanityImageAssetReference | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+  } | null;
+  reviewedAt: string | null;
+} | null;
+
+// Source: sanity/queries.ts
+// Variable: POST_SLUGS_QUERY
+// Query: *[_type == "post" && defined(slug.current)] { "slug": slug.current, _updatedAt }
+export type POST_SLUGS_QUERY_RESULT = Array<{
+  slug: string | null;
+  _updatedAt: string;
+}>;
+
+// Source: sanity/queries.ts
+// Variable: POSTS_QUERY
+// Query: *[_type == "post"] | order(publishedAt desc) {  _id, title, "slug": slug.current, publishedAt, excerpt, image { asset, hotspot, crop, alt },  author-> { name, credentials }, reviewedBy-> { name, credentials }}
+export type POSTS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  publishedAt: string | null;
+  excerpt: string | null;
+  image: {
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string | null;
+  } | null;
+  author: {
+    name: string | null;
+    credentials: string | null;
+  } | null;
+  reviewedBy: {
+    name: string | null;
+    credentials: string | null;
+  } | null;
+}>;
+
+// Source: sanity/queries.ts
+// Variable: LEGAL_PAGE_QUERY
+// Query: *[_type == "legalPage" && slug.current == $slug][0] {  _id, _type, _updatedAt, title, "slug": slug.current, effectiveDate, body}
+export type LEGAL_PAGE_QUERY_RESULT = {
+  _id: string;
+  _type: "legalPage";
+  _updatedAt: string;
+  title: string | null;
+  slug: string | null;
+  effectiveDate: string | null;
+  body: PortableText | null;
+} | null;
+
+// Source: sanity/queries.ts
+// Variable: LEGAL_PAGE_SLUGS_QUERY
+// Query: *[_type == "legalPage" && defined(slug.current)] { "slug": slug.current, _updatedAt }
+export type LEGAL_PAGE_SLUGS_QUERY_RESULT = Array<{
+  slug: string | null;
+  _updatedAt: string;
+}>;
+
+// Source: sanity/queries.ts
+// Variable: REDIRECTS_QUERY
+// Query: *[_type == "redirect" && defined(from) && defined(to)] { from, to, permanent }
+export type REDIRECTS_QUERY_RESULT = Array<{
+  from: string;
+  to: string;
+  permanent: boolean | null;
+}>;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    '*[_type == "settings" && _id == "settings"][0] {\n  orgName, tagline, logo { asset, hotspot, crop, alt },\n  contact { phone, email, primaryLocation-> {\n  _id, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,\n  hours[] { _key, days, opens, closes }\n} },\n  social[] { label, href },\n  patientsNav { header[] { label, href }, footer[] { label, href }, cta { label, href } },\n  providersNav { header[] { label, href }, footer[] { label, href }, cta { label, href } },\n  defaultSeo { title, description, image { asset, hotspot, crop, alt }, noIndex },\n  ga4Id,\n  consent { title, description, policyLink { label, href } }\n}': SETTINGS_QUERY_RESULT;
+    '*[_type == "page" && audience == $audience && slug.current == $slug][0] {\n  _id, _type, title, audience, "slug": slug.current, seo { title, description, image { asset, hotspot, crop, alt }, noIndex }, sections[] {\n  _key, _type,\n  _type == "hero" => { eyebrow, heading, text, image { asset, hotspot, crop, alt }, buttons[] { label, href } },\n  _type == "richText" => { body },\n  _type == "cta" => { heading, text, buttons[] { label, href } },\n  _type == "cards" => { heading, intro, items[] { _key, title, text, image { asset, hotspot, crop, alt }, link { label, href } } },\n  _type == "faqs" => { heading, items[]-> { _id, question, answer } },\n  _type == "providers" => {\n    heading,\n    "items": select(\n      count(items) > 0 => items[]-> {\n  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients\n},\n      *[_type == "provider"] | order(name asc) {\n  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients\n}\n    )\n  },\n  _type == "locations" => {\n    heading,\n    "items": select(\n      count(items) > 0 => items[]-> {\n  _id, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,\n  hours[] { _key, days, opens, closes }\n},\n      *[_type == "location"] | order(name asc) {\n  _id, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,\n  hours[] { _key, days, opens, closes }\n}\n    )\n  },\n  _type == "form" => {\n    heading, text, formId, submitLabel, successMessage,\n    fields[] { _key, key, label, type, options, required }\n  }\n}\n}': PAGE_QUERY_RESULT;
+    '*[_type == "page" && defined(slug.current)] {\n  audience, "slug": slug.current, _updatedAt\n}': PAGE_SLUGS_QUERY_RESULT;
+    '*[_type == "provider" && slug.current == $slug][0] {\n  _id, _type, _updatedAt, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt },\n  specialties, acceptingPatients, bio,\n  locations[]-> {\n  _id, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,\n  hours[] { _key, days, opens, closes }\n},\n  "services": *[_type == "service" && references(^._id)] | order(title asc) { _id, title, "slug": slug.current, summary }\n}': PROVIDER_QUERY_RESULT;
+    '*[_type == "provider"] | order(name asc) {\n  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients\n}': PROVIDERS_QUERY_RESULT;
+    '*[_type == "provider" && defined(slug.current)] { "slug": slug.current, _updatedAt }': PROVIDER_SLUGS_QUERY_RESULT;
+    '*[_type == "location" && slug.current == $slug][0] {\n  _id, _type, _updatedAt, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,\n  hours[] { _key, days, opens, closes },\n  "providers": select(\n    count(providers) > 0 => providers[]-> {\n  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients\n},\n    *[_type == "provider" && references(^._id)] | order(name asc) {\n  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients\n}\n  )\n}': LOCATION_QUERY_RESULT;
+    '*[_type == "location"] | order(name asc) {\n  _id, name, "slug": slug.current, image { asset, hotspot, crop, alt }, address, phone, geo,\n  hours[] { _key, days, opens, closes }\n}': LOCATIONS_QUERY_RESULT;
+    '*[_type == "location" && defined(slug.current)] { "slug": slug.current, _updatedAt }': LOCATION_SLUGS_QUERY_RESULT;
+    '*[_type == "service" && slug.current == $slug][0] {\n  _id, _type, _updatedAt, title, "slug": slug.current, summary, image { asset, hotspot, crop, alt }, body, seo { title, description, image { asset, hotspot, crop, alt }, noIndex },\n  reviewedBy-> { _id, name, credentials, role, bio, headshot { asset, hotspot, crop, alt } }, reviewedAt,\n  faqs[]-> { _id, question, answer },\n  providers[]-> {\n  _id, name, credentials, title, "slug": slug.current, headshot { asset, hotspot, crop, alt }, specialties, acceptingPatients\n}\n}': SERVICE_QUERY_RESULT;
+    '*[_type == "service" && defined(slug.current)] { "slug": slug.current, _updatedAt }': SERVICE_SLUGS_QUERY_RESULT;
+    '*[_type == "service"] | order(title asc) {\n  _id, title, "slug": slug.current, summary, image { asset, hotspot, crop, alt }\n}': SERVICES_QUERY_RESULT;
+    '*[_type == "post" && slug.current == $slug][0] {\n  _id, _type, _updatedAt, title, "slug": slug.current, publishedAt, excerpt, image { asset, hotspot, crop, alt }, body, seo { title, description, image { asset, hotspot, crop, alt }, noIndex },\n  author-> { _id, name, credentials, role, bio, headshot { asset, hotspot, crop, alt } }, reviewedBy-> { _id, name, credentials, role, bio, headshot { asset, hotspot, crop, alt } }, reviewedAt\n}': POST_QUERY_RESULT;
+    '*[_type == "post" && defined(slug.current)] { "slug": slug.current, _updatedAt }': POST_SLUGS_QUERY_RESULT;
+    '*[_type == "post"] | order(publishedAt desc) {\n  _id, title, "slug": slug.current, publishedAt, excerpt, image { asset, hotspot, crop, alt },\n  author-> { name, credentials }, reviewedBy-> { name, credentials }\n}': POSTS_QUERY_RESULT;
+    '*[_type == "legalPage" && slug.current == $slug][0] {\n  _id, _type, _updatedAt, title, "slug": slug.current, effectiveDate, body\n}': LEGAL_PAGE_QUERY_RESULT;
+    '*[_type == "legalPage" && defined(slug.current)] { "slug": slug.current, _updatedAt }': LEGAL_PAGE_SLUGS_QUERY_RESULT;
+    '*[_type == "redirect" && defined(from) && defined(to)] { from, to, permanent }': REDIRECTS_QUERY_RESULT;
+  }
+}
