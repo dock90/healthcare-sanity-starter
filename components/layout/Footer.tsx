@@ -6,6 +6,7 @@ type Settings = StegaBranded<SETTINGS_QUERY_RESULT>;
 import { Container, Link, Text } from "@/components/ui";
 import { Address } from "@/components/content/LocationCard";
 import { telHref, type Audience } from "@/lib/routes";
+import { CookieSettingsButton } from "./CookieSettingsButton";
 
 export function Footer({ settings, audience }: { settings: Settings; audience: Audience }) {
   const nav = audience === "providers" ? settings?.providersNav : settings?.patientsNav;
@@ -37,6 +38,7 @@ export function Footer({ settings, audience }: { settings: Settings; audience: A
                 </li>
               ) : null,
             )}
+            <li><CookieSettingsButton /></li>
           </ul>
         </nav>
         <div className="space-y-3">
