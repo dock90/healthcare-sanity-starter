@@ -20,3 +20,13 @@ Decisions the spec left open, made once here so nobody has to re-make them. Newe
 
 ## Deferred
 _(things that were tempting but don't earn a place in v1)_
+
+## Schema
+- **Slug `home` = audience root.** `page` with `audience: patients, slug: home` renders at `/`; `audience: providers, slug: home` at `/for-providers`. One rule, no "isHomepage" boolean.
+- **`providers` / `locations` sections with no refs show everything.** That's the directory page. Explicit refs = curated subset.
+- **Medical review lives on `service` and `post`** (`reviewedBy` + `reviewedAt`). `reviewedAt` is required when `reviewedBy` is set. Posts without a reviewer get a Studio warning, not an error — some posts are operational, not clinical.
+- **`person` has no route.** Authors/reviewers render as bylines and in JSON-LD. A `/people/[slug]` page would be an add-on.
+- **Location hours are structured** (`days[] / opens / closes`), not free text, because `openingHoursSpecification` in `MedicalClinic` JSON-LD needs it.
+- **Header nav gets at most 6 links + 1 button per audience.** Capped by validation. If a site needs a mega-menu it needs a different starter.
+- **No custom initial-value templates for pages by audience.** Sanity's `schema validate` CLI worker rejects templates that reference schema types (even valid ones), so the audience-filtered lists just use the default template; `audience` is a radio with `patients` preselected.
+- **`@sanity/icons` v5** exports one icon per subpath (`@sanity/icons/CogIcon` style is gone; it's `@sanity/icons/Cog`). Imports are written that way throughout.
