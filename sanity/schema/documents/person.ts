@@ -1,7 +1,7 @@
 import { defineField, defineType } from "sanity";
 import { UserIcon } from "@sanity/icons/User";
 
-/** Authors and medical reviewers. Not routed — there is no /people/[slug]. */
+/** Authors and medical reviewers. Not routed, there is no /people/[slug]. */
 export const person = defineType({
   name: "person",
   title: "Person",

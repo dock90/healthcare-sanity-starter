@@ -2,7 +2,7 @@ import type { SlugRule, StringRule } from "sanity";
 
 /**
  * Slug rule shared by every routed document. Lowercase, a–z 0–9 and single
- * hyphens only. No leading/trailing hyphen, no slashes — the route decides the prefix.
+ * hyphens only. No leading/trailing hyphen, no slashes, the route decides the prefix.
  */
 export const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 

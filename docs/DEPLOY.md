@@ -8,11 +8,11 @@ One supported target: **Vercel**, with Sanity's hosted content lake. Other hosts
 npx sanity@latest init --env   # or: create at sanity.io/manage
 ```
 
-- Dataset: `production`. Make it **public** only if the content is genuinely public (the demo is). A real clinic site is fine with public too — it's marketing content — but make that a decision, not a default.
+- Dataset: `production`. Make it **public** only if the content is genuinely public (the demo is). A real clinic site is fine with public too, it's marketing content, but make that a decision, not a default.
 - **Tokens** (sanity.io/manage → API → Tokens):
-  - `SANITY_API_READ_TOKEN` — role *Viewer*. Used for Draft Mode / live preview. Goes in Vercel.
-  - `SANITY_API_WRITE_TOKEN` — role *Editor*. Used only by `scripts/seed.ts` and `scripts/import-redirects.ts`. **Local only. Never in Vercel.**
-- **CORS origins** (API → CORS): add `http://localhost:3000`, your Vercel preview domain pattern (or the specific URLs), and the production domain. Tick "allow credentials" — the embedded Studio needs it.
+  - `SANITY_API_READ_TOKEN`: role *Viewer*. Used for Draft Mode / live preview. Goes in Vercel.
+  - `SANITY_API_WRITE_TOKEN`: role *Editor*. Used only by `scripts/seed.ts` and `scripts/import-redirects.ts`. **Local only. Never in Vercel.**
+- **CORS origins** (API → CORS): add `http://localhost:3000`, your Vercel preview domain pattern (or the specific URLs), and the production domain. Tick "allow credentials", the embedded Studio needs it.
 - **Webhook** (API → Webhooks): name `revalidate`, URL `https://<domain>/api/revalidate`, trigger on create/update/delete, projection `{ _type }`, secret = `SANITY_REVALIDATE_SECRET`. Optionally add a second webhook to a Vercel Deploy Hook, filtered to `_type == "redirect"`, so redirect changes rebuild the site.
 
 ## 2. Vercel project
@@ -49,7 +49,7 @@ npx vercel --prod
 npx vercel domains add www.yourclinic.com
 ```
 
-Vercel prints the DNS record. For a subdomain it's a CNAME to `cname.vercel-dns.com`; for an apex it's an A record to `76.76.21.21`. Set it at your DNS provider and wait for the certificate. Then set `NEXT_PUBLIC_SITE_URL` to the final URL and redeploy — sitemap, canonicals and JSON-LD all derive from it.
+Vercel prints the DNS record. For a subdomain it's a CNAME to `cname.vercel-dns.com`; for an apex it's an A record to `76.76.21.21`. Set it at your DNS provider and wait for the certificate. Then set `NEXT_PUBLIC_SITE_URL` to the final URL and redeploy, sitemap, canonicals and JSON-LD all derive from it.
 
 ## 4. After the first deploy
 
@@ -61,7 +61,7 @@ Vercel prints the DNS record. For a subdomain it's a CNAME to `cname.vercel-dns.
 
 ## Preview deployments
 
-Every PR gets a preview URL. Previews use the same dataset (there is one), so editors see the same content. Draft Mode works on previews too, but the Studio's Presentation tool opens the origin it's embedded in — open `/studio` on the preview URL to preview there.
+Every PR gets a preview URL. Previews use the same dataset (there is one), so editors see the same content. Draft Mode works on previews too, but the Studio's Presentation tool opens the origin it's embedded in, open `/studio` on the preview URL to preview there.
 
 ## Rollback
 

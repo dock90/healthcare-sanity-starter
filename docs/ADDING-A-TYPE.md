@@ -58,7 +58,7 @@ Reuse `imageWithAlt`, `portableText`, `slugRule`. Don't invent a second image ty
 
 ## 2. Studio structure (1 min)
 
-`sanity/structure.ts` — add to the group that fits. Insurers are administrative, so **Site**:
+`sanity/structure.ts`: add to the group that fits. Insurers are administrative, so **Site**:
 
 ```ts
 S.documentTypeListItem("insurer").title("Insurers"),
@@ -89,7 +89,7 @@ npm run typegen
 
 ## 4. Route (5 min)
 
-`app/(site)/(patients)/insurance/[slug]/page.tsx` — copy `services/[slug]/page.tsx` and trim:
+`app/(site)/(patients)/insurance/[slug]/page.tsx`: copy `services/[slug]/page.tsx` and trim:
 
 ```tsx
 import { notFound } from "next/navigation";

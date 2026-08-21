@@ -1,6 +1,6 @@
 # Migrating a site onto the starter
 
-Most healthcare sites that land on this starter are replacing something: a WordPress install nobody dares update, an agency-built Drupal site, a page builder. The risk in a migration isn't the new site — it's losing the rankings, links and bookmarks the old one earned. This kit is about not losing them.
+Most healthcare sites that land on this starter are replacing something: a WordPress install nobody dares update, an agency-built Drupal site, a page builder. The risk in a migration isn't the new site, it's losing the rankings, links and bookmarks the old one earned. This kit is about not losing them.
 
 ## The kit
 
@@ -14,22 +14,22 @@ Redirects are **exact-match paths**, on purpose. Wildcard and regex redirects ar
 
 ## Launch checklist
 
-### Four weeks out — inventory
+### Four weeks out: inventory
 - [ ] Export the old site's sitemap (or crawl it: `npx sitemap-generator-cli`, Screaming Frog, etc.). Save the URL list; this is your contract.
 - [ ] Pull the last 12 months of Search Console "Pages" and "Links" reports. Anything with impressions or backlinks **must** have a destination.
 - [ ] Decide the fate of every old URL: keep (same path), move (redirect), or retire (410 is honest; a redirect to the homepage is not).
 - [ ] Build `redirects.csv`. One row per moved URL.
 
-### Two weeks out — content
+### Two weeks out: content
 - [ ] Seed real content into Sanity. Every provider, every location, every service that had a page before.
 - [ ] Legal pages: privacy policy, terms, accessibility statement, notice of privacy practices. The seeded placeholders have a "replace before launch" banner for a reason.
 - [ ] Check `reviewedBy` / `reviewedAt` on every service and post that makes a clinical claim.
 - [ ] Run `npm run import-redirects -- redirects.csv --dry-run`, fix what it rejects, then run it for real.
 - [ ] Deploy a preview and run `npm run check-url-parity -- --old https://www.oldsite.com --new https://<preview>.vercel.app`. Work until it exits 0.
 
-### Launch week — configuration
+### Launch week: configuration
 - [ ] `NEXT_PUBLIC_SITE_URL` set to the final domain in Vercel (production env). Canonicals, sitemap and JSON-LD all derive from it.
-- [ ] `FORM_WEBHOOK_URL` pointed at the real receiver. Send a test submission and confirm it lands. Confirm the receiver is covered by a BAA if it will ever see PHI — see `docs/COMPLIANCE.md`.
+- [ ] `FORM_WEBHOOK_URL` pointed at the real receiver. Send a test submission and confirm it lands. Confirm the receiver is covered by a BAA if it will ever see PHI, see `docs/COMPLIANCE.md`.
 - [ ] Real Turnstile keys (not the `1x000…` test keys) in Vercel.
 - [ ] GA4 measurement ID in Site settings, and confirm nothing loads before consent (Network tab, fresh profile).
 - [ ] Sanity CORS origin added for the production domain.

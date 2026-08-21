@@ -28,7 +28,7 @@ type AsButton = Common & {
 };
 
 type AsLink = Common & {
-  /** Internal path or external URL. External opens in the same tab — users can choose. */
+  /** Internal path or external URL. External opens in the same tab, users can choose. */
   href: string;
 };
 

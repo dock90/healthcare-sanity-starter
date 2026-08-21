@@ -21,7 +21,7 @@ type Props = {
 
 /**
  * Headings are always semantic. Use `level` for document outline and `size`
- * when a section heading needs to look smaller — never skip levels to get a size.
+ * when a section heading needs to look smaller, never skip levels to get a size.
  */
 export function Heading({ level, size, children, className, id }: Props) {
   const Tag = `h${level}` as const;

@@ -56,7 +56,7 @@ export function Footer({ settings, audience }: { settings: Settings; audience: A
           <Text size="xs" muted as="p">
             © {year} {settings?.orgName}. If this is a medical emergency, call 911.
           </Text>
-          {/* Remove this line if you like — it's how people find the starter. */}
+          {/* Remove this line if you like, it's how people find the starter. */}
           <Text size="xs" muted as="p">
             Built with the{" "}
             <NextLink href="https://github.com/dock90/healthcare-sanity-starter" className="underline underline-offset-4 hover:text-accent-ink">

@@ -2,7 +2,7 @@ import { defineQuery } from "next-sanity";
 
 /*
  * Every GROQ query in the site. Typegen derives result types from these,
- * so projections are explicit — no `...` spreads on documents.
+ * so projections are explicit, no `...` spreads on documents.
  */
 
 const IMAGE = /* groq */ `{ asset, hotspot, crop, alt }`;

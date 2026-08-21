@@ -165,22 +165,22 @@ async function main() {
     });
   }
 
-  // Pages — patients
+  // Pages: patients
   const contactForm = {
     _type: "form",
     _key: key("contact-form"),
     heading: "Send us a message",
-    text: "For scheduling and general questions. Please don't include medical details here — we'll collect anything clinical over the phone or through the patient portal.",
+    text: "For scheduling and general questions. Please don't include medical details here. We'll collect anything clinical over the phone or through the patient portal.",
     formId: "contact",
     fields: [
       { _type: "field", _key: key("c-name"), key: "name", label: "Your name", type: "text", required: true },
       { _type: "field", _key: key("c-email"), key: "email", label: "Email", type: "email", required: true },
       { _type: "field", _key: key("c-phone"), key: "phone", label: "Phone", type: "tel", required: false },
-      { _type: "field", _key: key("c-topic"), key: "topic", label: "What is this about?", type: "select", required: true, options: ["New patient", "Existing patient — scheduling", "Billing", "Records request", "Something else"] },
+      { _type: "field", _key: key("c-topic"), key: "topic", label: "What is this about?", type: "select", required: true, options: ["New patient", "Existing patient, scheduling", "Billing", "Records request", "Something else"] },
       { _type: "field", _key: key("c-message"), key: "message", label: "Message", type: "textarea", required: true },
     ],
     submitLabel: "Send message",
-    successMessage: "Thanks — we've received your message and will be in touch within two business days. If this is urgent, please call (555) 013-2200.",
+    successMessage: "Thanks, we've received your message and will be in touch within two business days. If this is urgent, please call (555) 013-2200.",
   };
 
   const referralForm = {
@@ -198,7 +198,7 @@ async function main() {
       { _type: "field", _key: key("r-urgency"), key: "urgency", label: "Urgency", type: "select", required: true, options: ["Routine (2–4 weeks)", "Soon (within a week)", "Urgent (48 hours)"] },
     ],
     submitLabel: "Request a call back",
-    successMessage: "Thanks — our referral coordinator will call your office within one business day.",
+    successMessage: "Thanks, our referral coordinator will call your office within one business day.",
   };
 
   docs.push(
@@ -215,7 +215,7 @@ async function main() {
         { _type: "faqs", _key: key("ph-faqs"), heading: "Common questions", items: ["new-patient", "same-day", "insurance", "portal"].map((f) => ref(`faq-${f}`)) },
         { _type: "cta", _key: key("ph-cta"), heading: "Ready to get started?", text: "New-patient visits are usually available within two weeks.", buttons: [link("Request an appointment", "/contact"), link("Call (555) 013-2200", "tel:+15550132200")] },
       ],
-      seo: { _type: "seo", title: "Wrenfield Health — Primary care, cardiology and orthopedics", description: "Multi-specialty clinic in the Wrenfield valley. Same-week appointments, two locations, accepting new patients." },
+      seo: { _type: "seo", title: "Wrenfield Health: Primary care, cardiology and orthopedics", description: "Multi-specialty clinic in the Wrenfield valley. Same-week appointments, two locations, accepting new patients." },
     },
     {
       _id: "page-patients-about",
@@ -246,7 +246,7 @@ async function main() {
         { _type: "hero", _key: key("pn-hero"), heading: "New to Wrenfield Health?", text: "Here's what to expect at your first visit and how to get your records to us.", buttons: [link("Request an appointment", "/contact")] },
         { _type: "richText", _key: key("pn-body"), body: pt([
           { h2: "1. Request an appointment" },
-          "Use the contact form or call (555) 013-2200 and choose “New patient.” We'll confirm your insurance and offer the first available visit at the location you prefer — usually within two weeks.",
+          "Use the contact form or call (555) 013-2200 and choose “New patient.” We'll confirm your insurance and offer the first available visit at the location you prefer, usually within two weeks.",
           { h2: "2. Send us your records" },
           "If you're transferring from another clinic, ask them to send your records before your visit. They'll need a signed release; your previous clinic will have one, or you can ask us for ours when you call.",
           { h2: "3. Your first visit" },
@@ -268,7 +268,7 @@ async function main() {
         { _type: "locations", _key: key("pc-locations"), heading: "Our locations", items: [] },
       ],
     },
-    // Pages — providers
+    // Pages: providers
     {
       _id: "page-providers-home",
       _type: "page",
@@ -285,7 +285,7 @@ async function main() {
         { _type: "providers", _key: key("pp-providers"), heading: "Specialists accepting referrals", items: [ref("provider-whitcombe"), ref("provider-reinholt")] },
         { _type: "cta", _key: key("pp-cta"), heading: "Questions about a case?", text: "Our specialists take provider-to-provider calls Monday to Friday.", buttons: [link("Call the provider line", "tel:+15550132290"), link("Start a referral", "/for-providers/refer-a-patient")] },
       ],
-      seo: { _type: "seo", title: "For referring providers — Wrenfield Health", description: "Refer patients to Wrenfield Health cardiology, orthopedics and primary care. Two-week routine, 48-hour urgent." },
+      seo: { _type: "seo", title: "For referring providers | Wrenfield Health", description: "Refer patients to Wrenfield Health cardiology, orthopedics and primary care. Two-week routine, 48-hour urgent." },
     },
     {
       _id: "page-providers-refer",

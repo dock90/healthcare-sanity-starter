@@ -29,9 +29,9 @@ describe("track", () => {
     expect(() => track("phone_click", { context: "footer" })).not.toThrow();
   });
   it("rejects unknown events at the type level", () => {
-    // @ts-expect-error — free-form event names are not allowed
+    // @ts-expect-error, free-form event names are not allowed
     track("pageview", {});
-    // @ts-expect-error — props must match the event
+    // @ts-expect-error, props must match the event
     track("cta_click", { email: "x" });
   });
 });

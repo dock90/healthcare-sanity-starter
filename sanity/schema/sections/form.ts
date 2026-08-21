@@ -96,7 +96,7 @@ export const form = defineType({
       name: "successMessage",
       type: "text",
       rows: 2,
-      initialValue: "Thanks — we've received your message and will be in touch within two business days.",
+      initialValue: "Thanks, we've received your message and will be in touch within two business days.",
       validation: (rule) => rule.required().max(300),
     }),
   ],

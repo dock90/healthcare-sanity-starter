@@ -1,5 +1,5 @@
 /**
- * Wrenfield Health — fictional multi-specialty clinic. Every name, address and
+ * Wrenfield Health: a fictional multi-specialty clinic. Every name, address and
  * phone number is invented (555-01xx numbers are reserved for fiction).
  * Portable Text is written with the helpers at the bottom so it reads as prose here.
  */
@@ -14,7 +14,7 @@ export const ORG = {
 export const LOCATIONS = [
   {
     key: "northgate",
-    name: "Wrenfield Health — Northgate",
+    name: "Wrenfield Health Northgate",
     street: "4120 Northgate Parkway, Suite 200",
     city: "Wrenfield",
     region: "WA",
@@ -29,7 +29,7 @@ export const LOCATIONS = [
   },
   {
     key: "riverside",
-    name: "Wrenfield Health — Riverside",
+    name: "Wrenfield Health Riverside",
     street: "88 Mill Race Road",
     city: "Wrenfield",
     region: "WA",
@@ -173,7 +173,7 @@ export const SERVICES = [
 export const FAQS = [
   { key: "new-patient", category: "Appointments", question: "How do I become a new patient?", answer: ["Call the clinic or use the contact form and choose “New patient.” We will ask a few questions about your insurance and which location you prefer, then book a 45-minute first visit. Most new patients are seen within two weeks."] },
   { key: "same-day", category: "Appointments", question: "Do you offer same-day appointments?", answer: ["Yes. Each location holds a number of same-day slots for established patients with a new illness or injury. Call before 10 a.m. for the best chance of a slot that day. For anything life-threatening, call 911."] },
-  { key: "referral-needed", category: "Appointments", question: "Do I need a referral to see a specialist?", answer: ["For cardiology, yes — a referral is required by most insurance plans and it lets the team prepare. For orthopedics, many plans allow you to book directly; our schedulers can check your plan when you call."] },
+  { key: "referral-needed", category: "Appointments", question: "Do I need a referral to see a specialist?", answer: ["For cardiology, yes, a referral is required by most insurance plans and it lets the team prepare. For orthopedics, many plans allow you to book directly; our schedulers can check your plan when you call."] },
   { key: "insurance", category: "Billing", question: "Which insurance plans do you accept?", answer: ["We accept most major commercial plans, Medicare and Washington Apple Health. Because plan networks change, please confirm with our billing office at (555) 013-2210 before your first visit. We also offer a self-pay schedule."] },
   { key: "portal", category: "Patient portal", question: "How do I use the patient portal?", answer: ["You will receive an invitation by email after your first visit. The portal lets you see results, request refills, and message your care team. Please do not use the portal for urgent problems; messages are answered within one business day."] },
   { key: "cardiac-rehab", category: "Cardiology", question: "What is cardiac rehabilitation?", answer: ["A supervised 12-week program of exercise, education and support after a heart attack, heart surgery, or a heart failure diagnosis. Sessions are at Northgate three mornings a week. Most insurance plans cover it with a referral."] },
@@ -226,11 +226,11 @@ export const POSTS = [
     body: [
       "First visits take longer than follow-ups because we are building your record from scratch. A little preparation means more of that time goes to the things you came in for.",
       { h2: "Bring" },
-      { ul: ["Photo ID and insurance card", "Every medication you take, including over-the-counter drugs and supplements — bring the bottles if it is easier", "A list of past surgeries and major illnesses, with approximate dates", "The name of any specialist you see", "Your questions, written down"] },
+      { ul: ["Photo ID and insurance card", "Every medication you take, including over-the-counter drugs and supplements; bring the bottles if it is easier", "A list of past surgeries and major illnesses, with approximate dates", "The name of any specialist you see", "Your questions, written down"] },
       { h2: "Before you arrive" },
       "If you are transferring from another clinic, ask them to send your records to us; we need a signed release, which is on the new-patients page. Records that arrive before your visit let your provider review them in advance.",
       { h2: "Please don’t send health details through the website" },
-      "Our contact form is for scheduling and general questions. It is not a secure medical channel. Anything about your health — symptoms, diagnoses, medications — should go through the patient portal or a phone call, where it is protected.",
+      "Our contact form is for scheduling and general questions. It is not a secure medical channel. Anything about your health, symptoms, diagnoses, medications, should go through the patient portal or a phone call, where it is protected.",
     ],
   },
 ] as const;
@@ -274,7 +274,7 @@ export const LEGAL = [
     { h2: "Our responsibilities" },
     "We are required by law to maintain the privacy of your protected health information, to give you this notice of our legal duties and privacy practices, and to follow the terms of the notice currently in effect.",
     { h2: "How we may use and disclose your information" },
-    { ul: ["For treatment — to coordinate your care with other providers", "For payment — to bill you or your insurer", "For health care operations — quality improvement, training and audits", "As required by law, for public health, or to avert a serious threat"] },
+    { ul: ["For treatment: to coordinate your care with other providers", "For payment: to bill you or your insurer", "For health care operations: quality improvement, training and audits", "As required by law, for public health, or to avert a serious threat"] },
     { h2: "Your rights" },
     { ul: ["To see and get a copy of your record", "To request a correction", "To request restrictions on certain uses and disclosures", "To request confidential communications", "To a list of certain disclosures we have made", "To a paper copy of this notice", "To file a complaint with us or with the U.S. Department of Health and Human Services; we will not retaliate"] },
     { h2: "Contact" },

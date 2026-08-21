@@ -24,7 +24,7 @@ Decisions the spec left open, made once here so nobody has to re-make them. Newe
 - **Not using Cache Components (`cacheComponents: true`).** It would make preview + caching noticeably more code per page (`cachedSanity`, perspective plumbing). Revisit when it's the Next default.
 - **Components receive stega-branded data; metadata and JSON-LD use `stega: false`.** `_type`, `_key` and slugs stay plain so discriminated unions and routing work; anything compared to a literal goes through `stegaClean`.
 - **Index routes for `/providers`, `/locations`, `/services`, `/blog` are code, not `page` documents.** They list everything and need no editor input. Those slugs are reserved (`RESERVED_SLUGS`).
-- **Extracted schema is written to `sanity/extracted-schema.json`** (gitignored) — naming it `schema.json` makes Vite resolve `./sanity/schema` to the file instead of the directory and typegen silently sees an empty schema.
+- **Extracted schema is written to `sanity/extracted-schema.json`** (gitignored), naming it `schema.json` makes Vite resolve `./sanity/schema` to the file instead of the directory and typegen silently sees an empty schema.
 
 ## Forms
 - **The server action loads the form spec from Sanity by `formId`** and accepts only declared keys. The client can't add fields; the webhook never sees surprises.
@@ -42,21 +42,21 @@ Decisions the spec left open, made once here so nobody has to re-make them. Newe
 
 ## Deferred
 _(tempting, not in v1; each is a 20-minute add per docs/ADDING-A-TYPE.md)_
-- **Insurers, jobs, press, events** document types — spec excludes them; ADDING-A-TYPE uses `insurer` as its worked example.
-- **`/people/[slug]` author pages** — `person` is byline-only.
-- **Per-page initial-value templates by audience** — blocked by a Sanity CLI `schema validate` quirk; `audience` defaults to patients.
-- **Scheduled publishing** — plan-dependent in Sanity; document as an add-on.
-- **Search** — no on-site search. Most clinic sites need navigation, not search; if needed, Sanity's GROQ + a route handler is ~40 lines.
-- **Map embeds** — locations link out to Google Maps directions instead of loading a third-party map script (consent + performance).
-- **Wildcard redirects** — exact-match only by design; see MIGRATION.
-- **Dark mode** — one look.
-- **i18n** — not in scope; Sanity's `@sanity/document-internationalization` is the path if needed.
-- **Sanity Exchange listing, `npx create-next-app -e` verification** — promotion steps after launch.
+- **Insurers, jobs, press, events** document types, spec excludes them; ADDING-A-TYPE uses `insurer` as its worked example.
+- **`/people/[slug]` author pages**: `person` is byline-only.
+- **Per-page initial-value templates by audience**: blocked by a Sanity CLI `schema validate` quirk; `audience` defaults to patients.
+- **Scheduled publishing**: plan-dependent in Sanity; document as an add-on.
+- **Search**: no on-site search. Most clinic sites need navigation, not search; if needed, Sanity's GROQ + a route handler is ~40 lines.
+- **Map embeds**: locations link out to Google Maps directions instead of loading a third-party map script (consent + performance).
+- **Wildcard redirects**: exact-match only by design; see MIGRATION.
+- **Dark mode**: one look.
+- **i18n**: not in scope; Sanity's `@sanity/document-internationalization` is the path if needed.
+- **Sanity Exchange listing, `npx create-next-app -e` verification**: promotion steps after launch.
 
 ## Schema
 - **Slug `home` = audience root.** `page` with `audience: patients, slug: home` renders at `/`; `audience: providers, slug: home` at `/for-providers`. One rule, no "isHomepage" boolean.
 - **`providers` / `locations` sections with no refs show everything.** That's the directory page. Explicit refs = curated subset.
-- **Medical review lives on `service` and `post`** (`reviewedBy` + `reviewedAt`). `reviewedAt` is required when `reviewedBy` is set. Posts without a reviewer get a Studio warning, not an error — some posts are operational, not clinical.
+- **Medical review lives on `service` and `post`** (`reviewedBy` + `reviewedAt`). `reviewedAt` is required when `reviewedBy` is set. Posts without a reviewer get a Studio warning, not an error, some posts are operational, not clinical.
 - **`person` has no route.** Authors/reviewers render as bylines and in JSON-LD. A `/people/[slug]` page would be an add-on.
 - **Location hours are structured** (`days[] / opens / closes`), not free text, because `openingHoursSpecification` in `MedicalClinic` JSON-LD needs it.
 - **Header nav gets at most 6 links + 1 button per audience.** Capped by validation. If a site needs a mega-menu it needs a different starter.

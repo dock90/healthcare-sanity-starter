@@ -18,9 +18,9 @@ All tokens are CSS custom properties on `:root`, re-exported to Tailwind via `@t
 
 | Token | Value | Use | Contrast |
 |---|---|---|---|
-| `--color-bg` | `#faf8f5` | Page ground | — |
-| `--color-surface` | `#ffffff` | Cards, header, inputs | — |
-| `--color-surface-muted` | `#f1ede7` | Alternating section bands | — |
+| `--color-bg` | `#faf8f5` | Page ground | n/a |
+| `--color-surface` | `#ffffff` | Cards, header, inputs | n/a |
+| `--color-surface-muted` | `#f1ede7` | Alternating section bands | n/a |
 | `--color-border` | `#d8d3cb` | Hairlines, dividers (decorative) | 1.4:1 on bg |
 | `--color-border-strong` | `#7d786f` | Input and control borders | 4.1:1 on bg ✅ 3:1 non-text |
 | `--color-ink` | `#1b1b1a` | Headings, body | 16.3:1 on bg ✅ AAA |
@@ -28,7 +28,7 @@ All tokens are CSS custom properties on `:root`, re-exported to Tailwind via `@t
 | `--color-ink-inverse` | `#ffffff` | Text on accent | 7.5:1 on accent ✅ AAA |
 | `--color-accent` | `#0b5f5c` | Primary button fill, focus ring, rules | 7.1:1 on bg |
 | `--color-accent-hover` | `#084a48` | Button hover | 10.1:1 with white |
-| `--color-accent-soft` | `#e2efee` | Badges, hover tint, bands | — |
+| `--color-accent-soft` | `#e2efee` | Badges, hover tint, bands | n/a |
 | `--color-accent-ink` | `#074341` | Accent *as text* (links) | 10.5:1 on bg, 9.4:1 on accent-soft ✅ AAA |
 | `--color-error` | `#9a2a2a` | Form errors | 7.2:1 on bg ✅ |
 | `--color-success` | `#1e6b3a` | Form success | 6.2:1 on bg ✅ |
@@ -75,7 +75,7 @@ Section rhythm: `py-16 sm:py-24` between sections; `space-y-6` inside.
 | `Container` | Two widths only: `site` and `prose`. |
 | `Heading` | `level` is semantic and required; `size` is visual. You can't render an `h3` that looks like an `h1` by accident, and you can't skip levels to get a size. |
 | `Text` | Three sizes, one `muted` flag. |
-| `Button` | Three variants. Becomes `<a>` when given `href` — navigation stays navigation. |
+| `Button` | Three variants. Becomes `<a>` when given `href`: navigation stays navigation. |
 | `Link` | `inline` (underlined, in copy) or `nav` (padded to 44px). External links get `rel="noopener"`, same tab. |
 | `SanityImage` | `alt` is a required prop *and* a required schema field. Explicit `width`/`height` so there is no CLS. |
 | `SkipLink` | First focusable element on every page, targets `#main`. |

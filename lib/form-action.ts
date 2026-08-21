@@ -6,11 +6,11 @@ import { FORM_SPEC_QUERY } from "@/sanity/queries";
 /**
  * The one form handler.
  *
- *  1. Honeypot — a filled "website" field means a bot; pretend it worked.
- *  2. Turnstile — token verified server-side with Cloudflare.
- *  3. Spec — the form's field list is loaded from Sanity by `formId`, so only
+ *  1. Honeypot: a filled "website" field means a bot; pretend it worked.
+ *  2. Turnstile: token verified server-side with Cloudflare.
+ *  3. Spec: the form's field list is loaded from Sanity by `formId`, so only
  *     declared keys are accepted, validated and forwarded.
- *  4. Forward — one POST to FORM_WEBHOOK_URL. Nothing is stored here, and the
+ *  4. Forward: one POST to FORM_WEBHOOK_URL. Nothing is stored here, and the
  *     body is never logged. See docs/COMPLIANCE.md.
  */
 

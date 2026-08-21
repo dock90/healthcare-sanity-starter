@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props) {
   const a = location.address;
   return buildMetadata({
     title: location.name,
-    description: a ? `${location.name} — ${a.street}, ${a.city}, ${a.region}. Hours, phone and providers.` : location.name,
+    description: a ? `${location.name}: ${a.street}, ${a.city}, ${a.region}. Hours, phone and providers.` : location.name,
     path: routes.location(slug),
     settings,
     image: location.image,

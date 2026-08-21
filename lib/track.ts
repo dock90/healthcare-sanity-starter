@@ -2,7 +2,7 @@ import { hasConsent } from "./consent";
 
 /**
  * Every analytics event the site can send. Closed union: adding an event means
- * adding it here, which is the point — nobody can `track("whatever", {email})`.
+ * adding it here, which is the point: nobody can `track("whatever", {email})`.
  * Props are things the *site* knows (form IDs, route names), never things the
  * *visitor* typed.
  */
@@ -25,7 +25,7 @@ declare global {
 }
 
 /**
- * Send an event to GA4 — only if the visitor has consented to analytics and
+ * Send an event to GA4, but only if the visitor has consented to analytics and
  * the tag has loaded. Otherwise it's a no-op. Never throws.
  */
 export function track<N extends EventName>(name: N, props: EventProps<N>): void {
