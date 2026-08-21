@@ -18,8 +18,40 @@ Decisions the spec left open, made once here so nobody has to re-make them. Newe
 ## Known transitive audit items
 - `npm audit` reports a `js-yaml` advisory via `sanity → @vercel/frameworks` and `uuid` via `typeid-js`. Both are inside the Studio's dependency tree, not in the site bundle or any request path. Revisit on each Sanity minor; don't `audit fix --force` (it downgrades Sanity).
 
+## Data fetching and caching
+- **`defineLive` (Live Content API) is the one way to read content.** `sanityFetch` caches with Sanity's sync tags plus a per-type tag; `SanityLive` revalidates for connected visitors. Pages still build as static/SSG (verified in `next build` output), so this is ISR in practice.
+- **The revalidation webhook stays** even though Live covers most cases: it's what updates caches when nobody has the site open. It revalidates by `_type` with `"max"` (stale-while-revalidate).
+- **Not using Cache Components (`cacheComponents: true`).** It would make preview + caching noticeably more code per page (`cachedSanity`, perspective plumbing). Revisit when it's the Next default.
+- **Components receive stega-branded data; metadata and JSON-LD use `stega: false`.** `_type`, `_key` and slugs stay plain so discriminated unions and routing work; anything compared to a literal goes through `stegaClean`.
+- **Index routes for `/providers`, `/locations`, `/services`, `/blog` are code, not `page` documents.** They list everything and need no editor input. Those slugs are reserved (`RESERVED_SLUGS`).
+- **Extracted schema is written to `sanity/extracted-schema.json`** (gitignored) — naming it `schema.json` makes Vite resolve `./sanity/schema` to the file instead of the directory and typegen silently sees an empty schema.
+
+## Forms
+- **The server action loads the form spec from Sanity by `formId`** and accepts only declared keys. The client can't add fields; the webhook never sees surprises.
+- **Empty `FORM_WEBHOOK_URL` is accepted-and-discarded in development, an error in production.** A dev shouldn't need a receiver to try the form; a production site should never silently drop leads.
+- **Turnstile script loads on form pages without consent.** It's a necessary security control, not tracking. Documented in COMPLIANCE.
+
+## Consent + analytics
+- **`localStorage`, not a cookie, for consent state.** Nothing leaves the browser; no cookie to disclose.
+- **GA4 only.** Consent Mode v2 signals are sent. Adding GTM is a fork-level choice because GTM is where unreviewed scripts come from.
+- **`track()` props are things the site knows, never things the visitor typed.** Enforced by the type, reviewed by `lib/__tests__/track.test.ts`'s `@ts-expect-error` cases.
+
+## CI
+- **Lighthouse asserts Total Blocking Time ≤ 200ms as the lab proxy for INP.** Lighthouse can't measure INP without a user; TBT is the accepted stand-in. LCP 2.5s / CLS 0.1 as specified.
+- **Playwright runs against `next start`, not `next dev`.** What's tested is what ships.
+
 ## Deferred
-_(things that were tempting but don't earn a place in v1)_
+_(tempting, not in v1; each is a 20-minute add per docs/ADDING-A-TYPE.md)_
+- **Insurers, jobs, press, events** document types — spec excludes them; ADDING-A-TYPE uses `insurer` as its worked example.
+- **`/people/[slug]` author pages** — `person` is byline-only.
+- **Per-page initial-value templates by audience** — blocked by a Sanity CLI `schema validate` quirk; `audience` defaults to patients.
+- **Scheduled publishing** — plan-dependent in Sanity; document as an add-on.
+- **Search** — no on-site search. Most clinic sites need navigation, not search; if needed, Sanity's GROQ + a route handler is ~40 lines.
+- **Map embeds** — locations link out to Google Maps directions instead of loading a third-party map script (consent + performance).
+- **Wildcard redirects** — exact-match only by design; see MIGRATION.
+- **Dark mode** — one look.
+- **i18n** — not in scope; Sanity's `@sanity/document-internationalization` is the path if needed.
+- **Sanity Exchange listing, `npx create-next-app -e` verification** — promotion steps after launch.
 
 ## Schema
 - **Slug `home` = audience root.** `page` with `audience: patients, slug: home` renders at `/`; `audience: providers, slug: home` at `/for-providers`. One rule, no "isHomepage" boolean.
