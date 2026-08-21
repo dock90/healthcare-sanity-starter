@@ -37,6 +37,7 @@ export function telHref(display: string): string {
   return `tel:${display.replace(/[^+\d]/g, "")}`;
 }
 
+/** Anything Next's router shouldn't handle: other origins, tel:, mailto:. */
 export function isExternal(href: string): boolean {
-  return /^https?:\/\//.test(href);
+  return /^(https?:\/\/|tel:|mailto:)/.test(href);
 }

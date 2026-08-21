@@ -10,7 +10,8 @@
     "typegen": "sanity schema extract --path sanity/extracted-schema.json --force && sanity typegen generate",
     "typecheck": "tsc --noEmit",
     "import-redirects": "tsx scripts/import-redirects.ts",
-    "check-url-parity": "tsx scripts/check-url-parity.ts"
+    "check-url-parity": "tsx scripts/check-url-parity.ts",
+    "seed": "tsx scripts/seed.ts"
   },
   "dependencies": {
     "@portabletext/react": "^8.0.1",
@@ -35,6 +36,7 @@
     "babel-plugin-react-compiler": "1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.3.2",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
     "typescript": "^5"

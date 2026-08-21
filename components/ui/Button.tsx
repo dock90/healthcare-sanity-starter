@@ -1,5 +1,6 @@
 import NextLink from "next/link";
 import { cx } from "@/lib/cx";
+import { isExternal } from "@/lib/routes";
 
 export type ButtonVariant = "primary" | "secondary" | "ghost";
 
@@ -42,7 +43,7 @@ export function Button(props: Props) {
   const classes = cx(base, variants[variant], className);
 
   if (props.href !== undefined) {
-    const external = /^https?:\/\//.test(props.href);
+    const external = isExternal(props.href);
     return external ? (
       <a href={props.href} className={classes} rel="noopener">
         {children}

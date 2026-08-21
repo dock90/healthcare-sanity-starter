@@ -1,5 +1,6 @@
 import NextLink from "next/link";
 import { cx } from "@/lib/cx";
+import { isExternal } from "@/lib/routes";
 
 type Props = {
   href: string;
@@ -20,7 +21,7 @@ const kinds = {
 /** One link. Internal hrefs get client navigation; external get `rel="noopener"`. */
 export function Link({ href, children, className, current, kind = "inline" }: Props) {
   const classes = cx(kinds[kind], current && "text-accent-ink underline underline-offset-8", className);
-  const external = /^https?:\/\//.test(href);
+  const external = isExternal(href);
   if (external) {
     return (
       <a href={href} className={classes} rel="noopener">

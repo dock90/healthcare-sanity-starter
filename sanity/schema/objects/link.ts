@@ -18,14 +18,14 @@ export const link = defineType({
       name: "href",
       title: "Destination",
       type: "string",
-      description: "A site path like /services/cardiology or a full https:// URL.",
+      description: "A site path like /services/cardiology, a full https:// URL, or tel: / mailto:.",
       validation: (rule) =>
         rule
           .required()
           .custom((value) =>
-            !value || value.startsWith("/") || /^https:\/\//.test(value)
+            !value || value.startsWith("/") || /^(https:\/\/|tel:|mailto:)/.test(value)
               ? true
-              : "Must start with / (site path) or https://",
+              : "Must start with /, https://, tel: or mailto:",
           ),
     }),
   ],
