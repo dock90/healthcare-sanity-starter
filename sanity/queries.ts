@@ -123,3 +123,9 @@ export const LEGAL_PAGE_QUERY = defineQuery(`*[_type == "legalPage" && slug.curr
 export const LEGAL_PAGE_SLUGS_QUERY = defineQuery(`*[_type == "legalPage" && defined(slug.current)] { "slug": slug.current, _updatedAt }`);
 
 export const REDIRECTS_QUERY = defineQuery(`*[_type == "redirect" && defined(from) && defined(to)] { from, to, permanent }`);
+
+/** Server-side form spec lookup by formId, so the action only accepts declared fields. */
+export const FORM_SPEC_QUERY = defineQuery(`*[_type == "page" && count(sections[_type == "form" && formId == $formId]) > 0][0]
+  .sections[_type == "form" && formId == $formId][0] {
+  formId, fields[] { key, label, type, options, required }
+}`);

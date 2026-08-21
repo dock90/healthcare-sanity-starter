@@ -1,8 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import Script from "next/script";
-import { hasConsent, onConsentChange } from "@/lib/consent";
+import { CONSENT_CHANGE_EVENT, hasConsent, onConsentChange } from "@/lib/consent";
+
+function subscribe(cb: () => void) {
+  window.addEventListener(CONSENT_CHANGE_EVENT, cb);
+  return () => window.removeEventListener(CONSENT_CHANGE_EVENT, cb);
+}
 
 /**
  * GA4 loader. Renders nothing until the visitor has consented to analytics,
@@ -10,20 +15,20 @@ import { hasConsent, onConsentChange } from "@/lib/consent";
  * flips Consent Mode to denied; the tag stays loaded but stops collecting.
  */
 export function Analytics({ ga4Id }: { ga4Id: string | null }) {
-  const [enabled, setEnabled] = useState(false);
+  const enabled = useSyncExternalStore(subscribe, () => hasConsent("analytics"), () => false);
 
-  useEffect(() => {
-    setEnabled(hasConsent("analytics"));
-    return onConsentChange((state) => {
-      setEnabled(state.analytics);
-      window.gtag?.("consent", "update", {
-        analytics_storage: state.analytics ? "granted" : "denied",
-        ad_storage: state.marketing ? "granted" : "denied",
-        ad_user_data: state.marketing ? "granted" : "denied",
-        ad_personalization: state.marketing ? "granted" : "denied",
-      });
-    });
-  }, []);
+  useEffect(
+    () =>
+      onConsentChange((state) => {
+        window.gtag?.("consent", "update", {
+          analytics_storage: state.analytics ? "granted" : "denied",
+          ad_storage: state.marketing ? "granted" : "denied",
+          ad_user_data: state.marketing ? "granted" : "denied",
+          ad_personalization: state.marketing ? "granted" : "denied",
+        });
+      }),
+    [],
+  );
 
   if (!ga4Id || !enabled) return null;
 

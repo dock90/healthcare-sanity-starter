@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import { Button } from "@/components/ui";
 import {
+  CONSENT_CHANGE_EVENT,
   CONSENT_OPEN_EVENT,
   readConsent,
   writeConsent,
@@ -12,6 +13,11 @@ import { track } from "@/lib/track";
 
 type Copy = { title: string; description: string; policyHref: string | null; policyLabel: string | null };
 
+function subscribe(cb: () => void) {
+  window.addEventListener(CONSENT_CHANGE_EVENT, cb);
+  return () => window.removeEventListener(CONSENT_CHANGE_EVENT, cb);
+}
+
 /**
  * The consent dialog. Non-modal so it never traps keyboard users on arrival;
  * it sits early in the DOM, has a name and description, and every control is
@@ -19,8 +25,11 @@ type Copy = { title: string; description: string; policyHref: string | null; pol
  * `openConsentDialog()`.
  */
 export function ConsentGate({ copy }: { copy: Copy }) {
-  const [open, setOpen] = useState(false);
+  // Server renders closed; the client shows the dialog only when no decision is stored.
+  const decided = useSyncExternalStore(subscribe, () => readConsent() !== null, () => true);
+  const [forcedOpen, setForcedOpen] = useState(false);
   const [manage, setManage] = useState(false);
+  const open = forcedOpen || !decided;
   const [analytics, setAnalytics] = useState(false);
   const [marketing, setMarketing] = useState(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -28,14 +37,12 @@ export function ConsentGate({ copy }: { copy: Copy }) {
   const descId = useId();
 
   useEffect(() => {
-    const existing = readConsent();
-    if (!existing) setOpen(true);
     const onOpen = () => {
       const current = readConsent();
       setAnalytics(current?.analytics ?? false);
       setMarketing(current?.marketing ?? false);
       setManage(true);
-      setOpen(true);
+      setForcedOpen(true);
       // Explicit reopen: move focus so keyboard users land in the dialog.
       window.setTimeout(() => headingRef.current?.focus(), 0);
     };
@@ -46,7 +53,7 @@ export function ConsentGate({ copy }: { copy: Copy }) {
   function decide(choice: Pick<ConsentState, "analytics" | "marketing">) {
     writeConsent(choice);
     track("consent_update", { analytics: choice.analytics, marketing: choice.marketing });
-    setOpen(false);
+    setForcedOpen(false);
     setManage(false);
   }
 

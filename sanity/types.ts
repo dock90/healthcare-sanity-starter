@@ -1218,6 +1218,20 @@ export type REDIRECTS_QUERY_RESULT = Array<{
   permanent: boolean | null;
 }>;
 
+// Source: sanity/queries.ts
+// Variable: FORM_SPEC_QUERY
+// Query: *[_type == "page" && count(sections[_type == "form" && formId == $formId]) > 0][0]  .sections[_type == "form" && formId == $formId][0] {  formId, fields[] { key, label, type, options, required }}
+export type FORM_SPEC_QUERY_RESULT = {
+  formId: string | null;
+  fields: Array<{
+    key: string | null;
+    label: string | null;
+    type: "email" | "select" | "tel" | "text" | "textarea" | null;
+    options: Array<string> | null;
+    required: boolean | null;
+  }> | null;
+} | null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
@@ -1240,5 +1254,6 @@ declare module "@sanity/client" {
     '*[_type == "legalPage" && slug.current == $slug][0] {\n  _id, _type, _updatedAt, title, "slug": slug.current, effectiveDate, body\n}': LEGAL_PAGE_QUERY_RESULT;
     '*[_type == "legalPage" && defined(slug.current)] { "slug": slug.current, _updatedAt }': LEGAL_PAGE_SLUGS_QUERY_RESULT;
     '*[_type == "redirect" && defined(from) && defined(to)] { from, to, permanent }': REDIRECTS_QUERY_RESULT;
+    '*[_type == "page" && count(sections[_type == "form" && formId == $formId]) > 0][0]\n  .sections[_type == "form" && formId == $formId][0] {\n  formId, fields[] { key, label, type, options, required }\n}': FORM_SPEC_QUERY_RESULT;
   }
 }
