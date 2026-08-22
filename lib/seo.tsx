@@ -33,7 +33,7 @@ export function buildMetadata({ title, description, path, seo, settings, image, 
 }): Metadata {
   const org = settings?.orgName ?? "";
   const metaTitle = seo?.title ?? title ?? org;
-  const fullTitle = metaTitle && org && metaTitle !== org ? `${metaTitle} | ${org}` : metaTitle || org;
+  const fullTitle = metaTitle && org && !metaTitle.includes(org) ? `${metaTitle} | ${org}` : metaTitle || org;
   const metaDescription = seo?.description ?? description ?? settings?.defaultSeo?.description ?? undefined;
   const ogImage = seo?.image ?? image ?? settings?.defaultSeo?.image ?? null;
   const ogImageUrl = ogImage ? urlFor(ogImage).width(1200).height(630).url() : undefined;
