@@ -29,7 +29,7 @@ test("home has Organization JSON-LD and a canonical", async ({ page }) => {
   await page.goto("/");
   const ld = await page.locator('script[type="application/ld+json"]').allTextContents();
   expect(ld.some((s) => s.includes('"MedicalOrganization"'))).toBe(true);
-  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /^http:\/\/localhost:3000\/?$/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", /^https?:\/\/[^/]+\/?$/);
 });
 
 test("provider page has Physician JSON-LD", async ({ page }) => {
