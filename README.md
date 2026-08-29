@@ -77,6 +77,10 @@ There is one way to do each thing. If you disagree, fork it; that's the point: t
 
 Next.js 16 (App Router, TypeScript strict, React Compiler) · Sanity 6 with embedded Studio and TypeGen · `next-sanity` Live Content API · Tailwind 4 · Cloudflare Turnstile · Vitest · Playwright + axe · Lighthouse CI · Vercel.
 
+## Further reading
+
+The [healthcare website migration playbook](https://www.dock90.io/playbook) explains the method this starter encodes, one question per chapter. Start with [How do you migrate a healthcare site without losing its search traffic?](https://www.dock90.io/playbook/redirects-and-seo-preservation), which is the chapter behind `import-redirects` and `check-url-parity`.
+
 ## Need it built for you?
 
 Dock90 builds and migrates healthcare marketing sites on this stack. Fixed-price assessment, $12k → [dock90.io/assessment](https://dock90.io/assessment)
