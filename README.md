@@ -79,7 +79,15 @@ Next.js 16 (App Router, TypeScript strict, React Compiler) · Sanity 6 with embe
 
 ## Further reading
 
-The [healthcare website migration playbook](https://www.dock90.io/playbook) explains the method this starter encodes, one question per chapter. Start with [How do you migrate a healthcare site without losing its search traffic?](https://www.dock90.io/playbook/redirects-and-seo-preservation), which is the chapter behind `import-redirects` and `check-url-parity`.
+The [healthcare website migration playbook](https://www.dock90.io/playbook) explains the method this starter encodes, one question per chapter. The chapters behind the starter's pieces:
+
+- [Should you migrate at all?](https://www.dock90.io/playbook/should-you-migrate): the scorecard to run before starting.
+- [What are you actually migrating?](https://www.dock90.io/playbook/what-you-are-actually-migrating): the inventory behind `docs/MIGRATION.md` "four weeks out".
+- [How do you model content for a multi-audience healthcare site?](https://www.dock90.io/playbook/content-modeling-for-healthcare-sites): the schema in `sanity/schema/`, and `docs/ADDING-A-TYPE.md`.
+- [How do you migrate a healthcare site without losing its search traffic?](https://www.dock90.io/playbook/redirects-and-seo-preservation): `import-redirects` and `check-url-parity`.
+- [What is a healthcare marketing site allowed to collect?](https://www.dock90.io/playbook/forms-phi-consent-analytics): `docs/COMPLIANCE.md`, `lib/consent.ts`, `lib/track.ts`.
+
+Or [every chapter on one page](https://www.dock90.io/playbook/all).
 
 ## Need it built for you?
 
